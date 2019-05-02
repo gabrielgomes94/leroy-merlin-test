@@ -30,6 +30,8 @@ php artisan key:generate
 php artisan migrate
 ```
 
+- Setup and API_KEY on .env file
+
 - Start the local development server
 ```
 php artisan serve
