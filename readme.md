@@ -30,11 +30,38 @@ php artisan key:generate
 php artisan migrate
 ```
 
+#### Setup API
+
 - Setup and API_KEY on .env file
+
+##### Setup spreadsheet file
+- Upload the spreadsheet to an online repository, like s3, in order to send it to the API.
+- Sample URL: https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/products_teste_webdev_leroy.xlsx
+
+#### Queue setup
+
+- Install beanstalkd
+```
+# Debian / Ubuntu:
+  sudo apt-get update
+  sudo apt-get install beanstalkd
+```
+
+- Start beanstalkd if it isnt started:
+```
+  sudo service beanstalkd start
+```
+
+#### Run the application
 
 - Start the local development server
 ```
 php artisan serve
+```
+
+- Process the background jobs
+```
+php artisan queue:work
 ```
 
 #### Environment variables
