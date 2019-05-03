@@ -11,6 +11,13 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
+    public function index()
+    {
+        $products = Product::all();
+
+        return response()->json($products);
+    }
+
     public function store(Request $request)
     {
         dispatch(new ImportSpreadsheet($request->input('file_url')));
