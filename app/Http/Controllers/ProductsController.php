@@ -19,6 +19,11 @@ class ProductsController extends Controller
         return response()->json($products);
     }
 
+    public function show(Product $product)
+    {
+        return $product;
+    }
+
     public function store(Request $request)
     {
         $job = new ImportSpreadsheet($request->input('file_url'));
