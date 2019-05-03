@@ -39,4 +39,26 @@ class ProductsControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testsProductsAreUpdatedCorrectly()
+    {
+        $auth_token = "p2lbgWkFrykA4QyUmpHihzmc5BNzIABq";
+        $headers = ['Authorization' => "$auth_token"];
+
+        $product = factory(Product::class)->create([
+            'lm' => '123456',
+            'name' => 'First Product'
+        ]);
+
+        $payload = [
+            'name' => 'Updated product',
+        ];
+
+        $response = $this->json('PUT', '/api/products/' . $product->id, $payload, $headers)
+            ->assertStatus(200)
+            ->assertJson([
+                'id' => $product->id,
+                'name' => 'Updated product'
+            ]);
+    }
 }

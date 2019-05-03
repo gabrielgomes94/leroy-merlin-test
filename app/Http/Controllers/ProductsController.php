@@ -24,4 +24,12 @@ class ProductsController extends Controller
 
         return response()->json('A planilha está sendo importada.', 201);
     }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+
+        return response()->json($product, 200);
+    }
+
 }
