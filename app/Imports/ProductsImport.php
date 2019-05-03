@@ -31,7 +31,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithEvents, WithMu
         foreach ($rows as $row)
         {
             Product::create([
-                'im'  => $row['lm'],
+                'lm'  => $row['lm'],
                 'name' => $row['name'],
                 'free_shipping' => $row['free_shipping'] == 1 ? true : false,
                 'description' => $row['description'],
