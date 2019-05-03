@@ -67,3 +67,19 @@ php artisan queue:work
 #### Environment variables
 
 .env - Environment variables can be set in this file
+
+#### Testing
+
+- Create a database for tests with its name as specified on `phpunit.xml` file on line 32, which is setted as the following tag:
+```
+<server name="DB_DATABASE" value="leroy_merlin_test_testdb"/>
+```
+
+```
+CREATE DATABASE leroy_merlin_test_testdb;
+```
+
+- Run PHPUnit:
+```
+vendor/bin/phpunit
+```
