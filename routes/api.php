@@ -17,10 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products', function (Request $request) {
-    return response()->json(['success!']);
-})->middleware('api_token');
-
 Route::resource('products', 'ProductsController')->middleware('api_token');
 
 Route::get('/products/import_status/{job_id}', 'ProductsController@import_status')->middleware('api_token');
