@@ -12,6 +12,13 @@ use Imtigger\LaravelJobStatus\JobStatus;
 
 class ProductsController extends Controller
 {
+    public function index()
+    {
+        $products = Product::all();
+
+        return response()->json($products);
+    }
+
     public function store(Request $request)
     {
         $job = new ImportSpreadsheet($request->input('file_url'));
