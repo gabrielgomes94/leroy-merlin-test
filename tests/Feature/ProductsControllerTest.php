@@ -61,4 +61,18 @@ class ProductsControllerTest extends TestCase
                 'name' => 'Updated product'
             ]);
     }
+
+    public function testsProductsAreDeletedCorrectly()
+    {
+        $auth_token = "p2lbgWkFrykA4QyUmpHihzmc5BNzIABq";
+        $headers = ['Authorization' => "$auth_token"];
+
+        $product = factory(Product::class)->create([
+            'lm' => '123456',
+            'name' => 'First Product'
+        ]);
+
+        $this->json('DELETE', '/api/products/' . $product->id, [], $headers)
+            ->assertStatus(204);
+    }
 }
