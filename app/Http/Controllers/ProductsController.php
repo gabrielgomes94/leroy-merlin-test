@@ -52,4 +52,12 @@ class ProductsController extends Controller
         return response()->json($message, $status_code);
 
     }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+
+        return response()->json($product, 200);
+    }
+
 }
