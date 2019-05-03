@@ -60,4 +60,10 @@ class ProductsController extends Controller
         return response()->json($product, 200);
     }
 
+    public function destroy(Request $request, Product $product)
+    {
+        $product->delete();
+
+        return response()->json(null, 204);
+    }
 }
