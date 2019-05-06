@@ -10,10 +10,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Imtigger\LaravelJobStatus\Trackable;
 
 class ImportSpreadsheet implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Trackable;
     protected $file_url;
 
     /**
@@ -23,6 +24,7 @@ class ImportSpreadsheet implements ShouldQueue
      */
     public function __construct($file_url)
     {
+        $this->prepareStatus();
         $this->file_url = $file_url;
     }
 
