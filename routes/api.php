@@ -22,3 +22,5 @@ Route::get('/products', function (Request $request) {
 })->middleware('api_token');
 
 Route::resource('products', 'ProductsController')->middleware('api_token');
+
+Route::get('/products/import_status/{job_id}', 'ProductsController@import_status')->middleware('api_token');
