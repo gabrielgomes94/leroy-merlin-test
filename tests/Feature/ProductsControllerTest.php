@@ -152,4 +152,38 @@ class ProductsControllerTest extends TestCase
         $this->json('DELETE', '/api/products/' . $product->id, [], $headers)
             ->assertStatus(204);
     }
+
+    public function testsProductsAreNotFound()
+    {
+        $auth_token = "p2lbgWkFrykA4QyUmpHihzmc5BNzIABq";
+        $headers = ['Authorization' => "$auth_token"];
+
+        $product = factory(Product::class)->create([
+            'lm' => '123456',
+            'name' => 'First Product'
+        ]);
+
+        $this->json('GET', '/api/products/' . ($product->id + 1), [], $headers)
+            ->assertStatus(404);
+    }
+
+    public function testProductsWithBadRequest()
+    {
+        $auth_token = "p2lbgWkFrykA4QyUmpHihzmc5BNzIABq";
+        $headers = ['Authorization' => "$auth_token"];
+
+        $product = factory(Product::class)->create([
+            'lm' => '123456',
+            'name' => 'First Product',
+            'price' => 100.0
+        ]);
+
+        $payload = [
+            'name' => 'Updated product',
+            'price' => 'text on price'
+        ];
+
+        $response = $this->json('PUT', '/api/products/' . $product->id, $payload, $headers)
+            ->assertStatus(400);
+    }
 }
