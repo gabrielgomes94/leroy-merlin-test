@@ -29,3 +29,40 @@ curl -X POST \
   -H 'content-type: application/x-www-form-urlencoded' \
   -d file_url=https%3A%2F%2Fs3-sa-east-1.amazonaws.com%2Fteste-leroy-merlin%2Fproducts_teste_webdev_leroy.xlsx
 ```
+
+#### Response
+```
+"Spreadsheet is being imported. Check its status on:http://localhost:8000/api/products/import_status/{job_status_id}"
+```
+
+### Check Job Status
+
+#### Endpoint
+GET http://localhost:8000/api/products/import_status/{job_status_id}
+
+#### Response
+
+##### If the import was successful
+```
+"Spreadsheet was successfully imported!"
+status code: 200
+```
+
+##### If the import is still being processed
+```
+Spreadsheet still being imported.
+status code: 200
+```
+
+##### If the import wasnt successful
+```
+{
+    "message": "Spreadsheet could not be imported.",
+    "errors ": {
+        "message": "SQLSTATE[HY000]: General error: 1366 Incorrect decimal value: 'text' for column 'price' at row 1 (SQL: insert into `products` (`im`, `name`, `free_shipping`, `description`, `price`, `category`, `updated_at`, `created_at`) values (1009, Broca Z, 0, Broca simples, text, 123123, 2019-05-06 22:49:28, 2019-05-06 22:49:28))"
+    },
+    "attempts": 3
+}
+
+status code: 500
+```
