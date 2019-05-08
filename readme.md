@@ -4,8 +4,6 @@ PHP 7.2
 
 MySQL
 
-Redis
-
 Composer
 
 
@@ -25,11 +23,6 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-- Run the database migrations (Set the database connection in .env before migrating, also create the database schema before)
-```
-php artisan migrate
-```
-
 #### Setup API
 
 - Setup and API_KEY on .env file
@@ -39,17 +32,21 @@ php artisan migrate
 - Sample URL: https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/products_teste_webdev_leroy.xlsx
 
 #### Queue setup
-
-- Install beanstalkd
+- Setup Queue Connection on .env file
 ```
-# Debian / Ubuntu:
-  sudo apt-get update
-  sudo apt-get install beanstalkd
+QUEUE_CONNECTION=database
 ```
 
-- Start beanstalkd if it isnt started:
+- Setup Queue table migrations
 ```
-  sudo service beanstalkd start
+php artisan queue:table
+php artisan queue:failed-table
+```
+
+#### Run database migrations
+- Run the database migrations (Set the database connection in .env before migrating, also create the database schema before)
+```
+php artisan migrate
 ```
 
 #### Run the application
