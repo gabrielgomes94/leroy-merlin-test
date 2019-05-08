@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use Illuminate\Auth\AuthenticationException;
 
 use Closure;
 
@@ -16,7 +17,7 @@ class ApiToken
     public function handle($request, Closure $next)
     {
         if ($request->header('Authorization') != env('API_KEY')) {
-            return response()->json('Unauthorized', 401);
+            throw new AuthenticationException;
         }
 
         return $next($request);
