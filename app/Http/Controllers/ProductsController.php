@@ -42,16 +42,16 @@ class ProductsController extends Controller
 
         if ($jobStatus->is_finished == true){
             $message = 'Spreadsheet was successfully imported!';
-            $status_code = 201;
+            $status_code = parent::HTTP_CREATED;
         } elseif ($jobStatus->is_failed ==true){
 
             $message = ['message' => 'Spreadsheet could not be imported.',
                 'errors ' => $jobStatus->output,
                 'attempts' => $jobStatus->attempts];
-            $status_code = 500;
+            $status_code = parent::HTTP_INTERNAL_SERVER_ERROR;
         } else {
             $message = 'Spreadsheet still being imported.';
-            $status_code = 200;
+            $status_code = parent::HTTP_OK;
         }
 
         return response()->json($message, $status_code);
@@ -62,13 +62,13 @@ class ProductsController extends Controller
     {
         $product->update($request->all());
 
-        return response()->json($product, 200);
+        return response()->json($product, parent::HTTP_OK);
     }
 
     public function destroy(Request $request, Product $product)
     {
         $product->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, parent::HTTP_NO_CONTENT);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\QueryException;
@@ -50,15 +51,15 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthenticationException) {
-            return response()->json('Unauthorized', 401);
+            return response()->json('Unauthorized', Controller::HTTP_UNAUTHORIZED);
         }
 
         if ($exception instanceof ModelNotFoundException) {
-            return response()->json(str_replace('App\\', '', $exception->getModel()).' not found', 404);
+            return response()->json(str_replace('App\\', '', $exception->getModel()).' not found', Controller::HTTP_NOT_FOUND);
         }
 
         if ($exception instanceof QueryException) {
-            return response()->json('Bad Request', 400);
+            return response()->json('Bad Request', Controller::HTTP_BAD_REQUEST);
         }
 
         return parent::render($request, $exception);
