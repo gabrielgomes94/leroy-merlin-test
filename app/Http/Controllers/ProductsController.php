@@ -21,7 +21,7 @@ class ProductsController extends Controller
 
     public function show(Product $product)
     {
-        return $product;
+        return response()->json($product);
     }
 
     public function store(Request $request)
