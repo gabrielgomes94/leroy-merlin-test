@@ -31,6 +31,13 @@ php artisan key:generate
 - Upload the spreadsheet to an online repository, like s3, in order to send it to the API.
 - Sample URL: https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/products_teste_webdev_leroy.xlsx
 
+- Another sample spreadsheets:
+- Spreadsheet with data errors: https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/products_teste_webdev_leroy_with_errors.xlsx
+
+- Wrong spreadsheet(different format): https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/wrong_spreadsheet_teste_webdev_leroy.xlsx
+
+- ODS spreadsheet with authentication error(S3 file is not public): https://s3-sa-east-1.amazonaws.com/teste-leroy-merlin/wrong_spreadsheet_teste_webdev_leroy.ods
+
 #### Queue setup
 - Setup Queue Connection on .env file
 ```
@@ -58,7 +65,7 @@ php artisan serve
 
 - Process the background jobs
 ```
-php artisan queue:work
+php artisan queue:listen database --tries=3
 ```
 
 #### Environment variables
